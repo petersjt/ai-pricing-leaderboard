@@ -1,57 +1,71 @@
 # AI Pricing Leaderboard
 
-Welcome to the AI Pricing Leaderboard project! This repository provides a comprehensive platform to compare and analyze the pricing models of various AI services.
+This monorepo hosts a minimal pricing leaderboard for major AI model providers. It is built with Next.js 15, Tailwind CSS, and Prisma with PostgreSQL. The MVP ships with mock data and seeds so you can explore the UI immediately while preparing real scraping integrations.
 
-## Table of Contents
+## Stack
 
-- [Introduction](#introduction)
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+- **Apps**: `apps/web` – Next.js 15 (App Router) with Tailwind CSS and TypeScript.
+- **Database**: PostgreSQL accessed via Prisma inside `packages/db`.
+- **Shared packages**:
+  - `packages/types` – common Zod schemas and TypeScript types.
+  - `packages/utils` – helper utilities (formatting, etc.).
+  - `packages/scrapers` – placeholder modules for future pricing scrapers.
 
-## Introduction
+The repository uses pnpm workspaces to link packages together.
 
-The AI Pricing Leaderboard aims to offer transparency in AI service pricing by aggregating data from multiple providers and presenting it in an easy-to-understand leaderboard format. This helps developers and businesses make informed decisions based on cost-efficiency.
+## Getting started
 
-## Features
+1. Install dependencies:
 
-- Aggregated pricing data from leading AI providers
-- Interactive leaderboard with sorting and filtering options
-- Historical pricing trends visualization
-- API access for integration with other tools
+   ```bash
+   pnpm install
+   ```
 
-## Installation
+2. Provide a `DATABASE_URL` in a `.env` file at the repository root. Example for a local PostgreSQL instance:
 
-To get started with the AI Pricing Leaderboard, clone the repository and install the necessary dependencies:
+   ```bash
+   DATABASE_URL="postgresql://postgres:postgres@localhost:5432/ai_pricing"
+   ```
 
-```bash
-git clone https://github.com/yourusername/ai-pricing-leaderboard.git
-cd ai-pricing-leaderboard
-npm install
+3. Push the Prisma schema and generate the client:
+
+   ```bash
+   pnpm db:migrate
+   pnpm db:generate
+   ```
+
+4. Seed the database with the included mock provider/model data:
+
+   ```bash
+   pnpm db:seed
+   ```
+
+5. Start the development server:
+
+   ```bash
+   pnpm dev
+   ```
+
+   Visit [http://localhost:3000](http://localhost:3000) to see the seeded leaderboard.
+
+## Project structure
+
+```
+.
+├── apps
+│   └── web               # Next.js frontend (App Router)
+├── packages
+│   ├── db                # Prisma client, schema, seed helpers
+│   ├── scrapers          # Placeholder provider scrapers
+│   ├── types             # Zod schemas and shared TS types
+│   └── utils             # Formatting helpers
+└── pnpm-workspace.yaml
 ```
 
-## Usage
+## Next steps
 
-Start the application locally with:
-
-```bash
-npm start
-```
-
-Open your browser and navigate to `http://localhost:3000` to view the leaderboard.
-
-To build the project for production:
-
-```bash
-npm run build
-```
-
-## Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request with your improvements. Make sure to follow the coding standards and include tests where applicable.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+- Wire up real scrapers inside `packages/scrapers` to populate the database automatically.
+- Expand API routes with filtering, pagination, and historical trend endpoints.
+- Add authentication/role-based access for managing provider data.
+- Layer in charts for historical price movements and provider comparisons.
+- Set up automated tests and linting pipelines with CI.
