@@ -1,8 +1,4 @@
-Here’s a drop-in README.md you can paste into the new repo to get Codex moving fast.
-
-⸻
-
-AI Pricing Leaderboard
+# AI Pricing Leaderboard
 
 A community-maintained leaderboard that tracks, compares, and normalizes AI model pricing (input/output tokens, images, audio, tools, batch, fine-tuning, etc.) across providers and regions—optimized for clarity and apples-to-apples comparisons.
 
