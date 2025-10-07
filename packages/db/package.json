@@ -1,0 +1,30 @@
+{
+  "name": "@ai-pricing-leaderboard/db",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "prisma": "prisma",
+    "generate": "prisma generate",
+    "db:seed": "prisma db seed"
+  },
+  "dependencies": {
+    "@prisma/client": "5.20.0",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "prisma": "5.20.0",
+    "tsx": "4.16.2",
+    "typescript": "5.5.4"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  }
+}
